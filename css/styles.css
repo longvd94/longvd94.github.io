@@ -118,7 +118,7 @@ body {
     width:144px;
     height: 39px;
     text-indent: -9999em;
-    background: url('.https://longvd94.github.io/images/logo-w.png') 0 0 / 144px 39px no-repeat;
+    background: url('https://longvd94.github.io/images/logo-w.png?v=123') 0 0 / 144px 39px no-repeat;
     background-position: center center;
 }
 .main-nav--btn {
@@ -137,7 +137,7 @@ body {
     margin-top:-12px;    
     width:24px;
     height:24px;
-    background-image: url('.https://longvd94.github.io/images/menu-bar.png');
+    background-image: url('https://longvd94.github.io/images/menu-bar.png?v=123');
     background-size: 48px 24px;
 }
 .main-nav__btn--close:after {
@@ -154,7 +154,7 @@ body {
     margin-top: -13px;
     width: 26px;
     height: 26px;
-    background-image: url('.https://longvd94.github.io/images/search-o.png');
+    background-image: url('https://longvd94.github.io/images/search-o.png?v=123');
     background-size: 26px 26px;
 }
 .header-search-container, 
@@ -422,7 +422,7 @@ body {
     margin: 0 auto;
     width: 126px;
     height: 35px;
-    background: url('.https://longvd94.github.io/images/logo-p.png') 0 0 / 126px 35px no-repeat;   
+    background: url('https://longvd94.github.io/images/logo-p.png?v=123') 0 0 / 126px 35px no-repeat;   
 }
 .footer--linklists {
     text-align: center
