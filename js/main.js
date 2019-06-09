@@ -106,7 +106,7 @@ var t = {
 
                 if (newMoreButton){
                     // hanle if new more button appended
-                    $moreArticlesBtn.unbind('click touchstart', t.callAjaxMoreArticles);
+                    $moreArticlesBtn.unbind('click', t.callAjaxMoreArticles);
                     t.handleClickMoreArticles()
                 }
 
@@ -116,7 +116,7 @@ var t = {
     handleClickMoreArticles: function(){
         var $moreArticlesBtn = $('.articles-more-btn');
         if ( t.checkElement( $moreArticlesBtn ) && !$moreArticlesBtn.attr('disabled') ){
-            $moreArticlesBtn.bind('click touchstart', t.callAjaxMoreArticles)
+            $moreArticlesBtn.bind('click', t.callAjaxMoreArticles)
         } 
     }, 
     callAjaxMoreComment: function(){
@@ -169,7 +169,7 @@ var t = {
 
             if (newMoreButton){
              // hanle if new more button appended
-               $moreBtn.unbind('click touchstart', t.callAjaxMoreComment);
+               $moreBtn.unbind('click', t.callAjaxMoreComment);
                t.handleClickMoreCommentBtn()
             }
         },1500)
@@ -177,7 +177,7 @@ var t = {
     handleClickMoreCommentBtn: function(){
         var $moreBtn = $('.article-comment--more-btn');
         if ( t.checkElement( $moreBtn ) ){
-            $moreBtn.bind('click touchstart', t.callAjaxMoreComment)
+            $moreBtn.bind('click', t.callAjaxMoreComment)
         } 
     },
     initScrollArticles: function(){
