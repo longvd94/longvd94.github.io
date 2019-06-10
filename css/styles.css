@@ -140,6 +140,19 @@ body {
     -moz-box-shadow: 3px 3px 0 #f7bac7; 
 }
 
+.tag-list--title__small {
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    padding: 0 7px;
+}
+
+.tag-list--title__main-color, 
+.tag-list--title__main-color:hover, 
+.tag-list--title__main-color:focus {
+    color: #f67280
+}
+
 .main-nav {    
     height: 56px;   
     padding: 8px 0;
@@ -577,6 +590,27 @@ body {
     height: 62px;
     padding-top: 5px;
     padding-bottom: 5px;
+}
+.category-filter {
+    padding: 10px 0 7px;
+}
+.category-filter--triangle {   
+    position: relative;    
+}
+.category-filter--triangle:after {
+    content: '';
+    position: absolute;
+    top: -22px;
+    left: 8px;
+    width: 0;
+    height: 0;
+    border-left: 14px solid transparent;
+    border-right: 14px solid transparent;
+    border-bottom: 14px solid #ffe6eb;
+
+}
+.category-filter--slider .owl-item {
+    padding-bottom: 3px
 }
 
 #footer {    

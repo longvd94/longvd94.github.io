@@ -35,87 +35,91 @@ var t = {
     },
     callAjaxMoreArticles: function(){
         var $moreArticlesBtn = $('.articles-more-btn');
-        var buttonTextOrigin = $moreArticlesBtn.text(); // use when ajax call fail       
-        var $elementAppend = $moreArticlesBtn.parent();
-        var lastArticlesCurrent = $moreArticlesBtn.prev(); // using when add divide for last article current
+        if ( !$moreArticlesBtn.attr('disabled') ){
 
-        var page = $moreArticlesBtn.data('page');
-        var offset = $moreArticlesBtn.data('offset');
-        var category = $moreArticlesBtn.data('category');
-        var templates = $moreArticlesBtn.data('templates');
-        console.log(page, offset, category, templates);
+        
+            var buttonTextOrigin = $moreArticlesBtn.text(); // use when ajax call fail       
+            var $elementAppend = $moreArticlesBtn.parent();
+            var lastArticlesCurrent = $moreArticlesBtn.prev(); // using when add divide for last article current
 
-        var templateArticle = t.getTemplateAricles(templates);
-        if (templateArticle){
-            t.toggleLoadingButton($moreArticlesBtn, 'disabled');
-            // call Ajax here
-            // ajax('...')
-            // if call ajax fail: t.toggleLoadingButton($moreArticlesBtn, 'enabled', buttonTextOrigin);
-            // else call ajax success: $moreArticlesBtn.remove();
-            // and add new button with new request data
-            setTimeout(function(){
-                $moreArticlesBtn.remove();
-                var articlesData = [
-                    {
-                        url: '#',
-                        thumb: 'https://longvd94.github.io/images/article-list.jpg',
-                        title: "Highline bàn thắng duy nhất của đội tuyển Việt Nam vào lưới Thái Lan để giành vé vào chung kết King's Cup 2019",
-                        published_time: '21:25 Hôm nay',
-                        category: 'Videos'
-                    },
-                    {
-                        url: '#',
-                        thumb: 'https://longvd94.github.io/images/article-list.jpg',
-                        title: "Highline bàn thắng duy nhất của đội tuyển Việt Nam vào lưới Thái Lan để giành vé vào chung kết King's Cup 2019",
-                        published_time: '21:25 Hôm nay',
-                        category: 'Videos'
-                    },
-                    {
-                        url: '#',
-                        thumb: 'https://longvd94.github.io/images/article-list.jpg',
-                        title: "Highline bàn thắng duy nhất của đội tuyển Việt Nam vào lưới Thái Lan để giành vé vào chung kết King's Cup 2019",
-                        published_time: '21:25 Hôm nay',
-                        category: 'Videos'
+            var page = $moreArticlesBtn.data('page');
+            var offset = $moreArticlesBtn.data('offset');
+            var category = $moreArticlesBtn.data('category');
+            var templates = $moreArticlesBtn.data('templates');
+            console.log(page, offset, category, templates);
+
+            var templateArticle = t.getTemplateAricles(templates);
+            if (templateArticle){
+                t.toggleLoadingButton($moreArticlesBtn, 'disabled');
+                // call Ajax here
+                // ajax('...')
+                // if call ajax fail: t.toggleLoadingButton($moreArticlesBtn, 'enabled', buttonTextOrigin);
+                // else call ajax success: $moreArticlesBtn.remove();
+                // and add new button with new request data
+                setTimeout(function(){
+                    $moreArticlesBtn.remove();
+                    var articlesData = [
+                        {
+                            url: '#',
+                            thumb: 'https://longvd94.github.io/images/article-list.jpg',
+                            title: "Highline bàn thắng duy nhất của đội tuyển Việt Nam vào lưới Thái Lan để giành vé vào chung kết King's Cup 2019",
+                            published_time: '21:25 Hôm nay',
+                            category: 'Videos'
+                        },
+                        {
+                            url: '#',
+                            thumb: 'https://longvd94.github.io/images/article-list.jpg',
+                            title: "Highline bàn thắng duy nhất của đội tuyển Việt Nam vào lưới Thái Lan để giành vé vào chung kết King's Cup 2019",
+                            published_time: '21:25 Hôm nay',
+                            category: 'Videos'
+                        },
+                        {
+                            url: '#',
+                            thumb: 'https://longvd94.github.io/images/article-list.jpg',
+                            title: "Highline bàn thắng duy nhất của đội tuyển Việt Nam vào lưới Thái Lan để giành vé vào chung kết King's Cup 2019",
+                            published_time: '21:25 Hôm nay',
+                            category: 'Videos'
+                        }
+                    ];
+                    var articlesHtml = '';
+                    var articleDivide = articleElemTemplate.articleDivide;
+                    var lastIndexOfNewArticles = articlesData.length - 1;
+                    articlesData.forEach(function(article, i){
+                        var articleHtml = templateArticle;
+                        articleHtml = articleHtml.replace(/\{ARTICLE_URL\}/g, article.url);
+                        articleHtml = articleHtml.replace(/\{ARTICLE_PUBLISHED_TIME\}/g, article.published_time);
+                        articleHtml = articleHtml.replace(/\{ARTICLE_THUMB\}/g, article.thumb);
+                        articleHtml = articleHtml.replace(/\{ARTICLE_IN_CATEGORY\}/g, article.category); 
+                        articleHtml = articleHtml.replace(/\{ARTICLE_TITLE\}/g, article.title);
+                        if ( i !== lastIndexOfNewArticles ){
+                            articleHtml = articleHtml.replace(/\{DIVIDE\}/g, articleDivide);
+                        } else {
+                            articleHtml = articleHtml.replace(/\{DIVIDE\}/g, '');
+                        }
+                        articlesHtml += articleHtml;
+                    })
+
+                    var newMoreButton = '<a href="javascript:void(0);" class="articles-more-btn" data-page="1" data-offset="2" data-category="videos" data-templates=' + templates + '>Xem thêm</a>';
+                    articlesHtml+= newMoreButton;
+                    
+                    if (!!templateArticle.match(/\{DIVIDE\}/g)){
+                        lastArticlesCurrent.append(articleDivide);
+                    }                
+                    $elementAppend.append(articlesHtml);
+
+                    if (newMoreButton){
+                        // hanle if new more button appended
+                        $moreArticlesBtn.unbind('click', t.callAjaxMoreArticles);
+                        t.handleClickMoreArticles()
                     }
-                ];
-                var articlesHtml = '';
-                var articleDivide = articleElemTemplate.articleDivide;
-                var lastIndexOfNewArticles = articlesData.length - 1;
-                articlesData.forEach(function(article, i){
-                    var articleHtml = templateArticle;
-                    articleHtml = articleHtml.replace(/\{ARTICLE_URL\}/g, article.url);
-                    articleHtml = articleHtml.replace(/\{ARTICLE_PUBLISHED_TIME\}/g, article.published_time);
-                    articleHtml = articleHtml.replace(/\{ARTICLE_THUMB\}/g, article.thumb);
-                    articleHtml = articleHtml.replace(/\{ARTICLE_IN_CATEGORY\}/g, article.category); 
-                    articleHtml = articleHtml.replace(/\{ARTICLE_TITLE\}/g, article.title);
-                    if ( i !== lastIndexOfNewArticles ){
-                        articleHtml = articleHtml.replace(/\{DIVIDE\}/g, articleDivide);
-                    } else {
-                        articleHtml = articleHtml.replace(/\{DIVIDE\}/g, '');
-                    }
-                    articlesHtml += articleHtml;
-                })
 
-                var newMoreButton = '<a href="javascript:void(0);" class="articles-more-btn" data-page="1" data-offset="2" data-category="videos" data-templates=' + templates + '>Xem thêm</a>';
-                articlesHtml+= newMoreButton;
-                
-                if (!!templateArticle.match(/\{DIVIDE\}/g)){
-                    lastArticlesCurrent.append(articleDivide);
-                }                
-                $elementAppend.append(articlesHtml);
-
-                if (newMoreButton){
-                    // hanle if new more button appended
-                    $moreArticlesBtn.unbind('click', t.callAjaxMoreArticles);
-                    t.handleClickMoreArticles()
-                }
-
-            }, 1500)
+                }, 1500)
+            }
         }
     },
     handleClickMoreArticles: function(){
         var $moreArticlesBtn = $('.articles-more-btn');
-        if ( t.checkElement( $moreArticlesBtn ) && !$moreArticlesBtn.attr('disabled') ){
+        if ( t.checkElement( $moreArticlesBtn ) ){
             $moreArticlesBtn.bind('click', t.callAjaxMoreArticles)
         } 
     }, 
@@ -198,6 +202,17 @@ var t = {
             })
         }
     },
+    initCategoryFilterSlider: function(){
+        var $filterSlider = $('.category-filter--slider');
+        if ( t.checkElement( $filterSlider ) ){
+            $filterSlider.owlCarousel({
+                loop: false,
+                center: false,                
+                autoWidth:true,                
+                margin:10                
+            })
+        }
+    },
     eventClickHeaderMainMenu: function(e){
         var $mainMenuBtn = $('.main-nav--btn__bars');
         var $headerMainMenu = $('.header-menu-container');        
@@ -253,6 +268,7 @@ var t = {
 $(document).ready(function(){
     t.handleClickMoreArticles();
     t.handleClickMoreCommentBtn();
+    t.initCategoryFilterSlider();
     t.initArticlesSlider();
     t.initScrollArticles();
     t.handleClickMainMenuBtn();
