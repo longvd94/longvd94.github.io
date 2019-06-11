@@ -139,13 +139,13 @@ var t = {
         }
     },
     handleClickMoreArticles: function(){
-        var $moreArticlesBtn = $('.articles-more-btn');
+        var $moreArticlesBtn = $('.articles-more-btn');        
         if ( t.checkElement( $moreArticlesBtn ) ){
             $moreArticlesBtn.bind('click', t.callAjaxMoreArticles)
         } 
     }, 
     callAjaxMoreComment: function(){
-        var $moreBtn = $('.article-comment--more-btn');
+        var $moreBtn = $('.article-comment--more-btn');       
         $moreBtn.hide();
         var $elementAppend = $moreBtn.parent();
         var page = $moreBtn.data('page');
@@ -200,7 +200,7 @@ var t = {
         },1500)
     },
     handleClickMoreCommentBtn: function(){
-        var $moreBtn = $('.article-comment--more-btn');
+        var $moreBtn = $('.article-comment--more-btn');        
         if ( t.checkElement( $moreBtn ) ){
             $moreBtn.bind('click', t.callAjaxMoreComment)
         } 
@@ -238,27 +238,28 @@ var t = {
         var $main = $('#main');
         var $mainMenuBtn = $('.main-nav--btn__bars');
         var $headerMainMenu = $('.header-menu-container');        
+        var eventDevice = t.checkTouchStartInDevice();
         if (!$headerMainMenu.is(e.target) && $headerMainMenu.has(e.target).length === 0){
             $headerMainMenu.removeClass('animated fadeInDown');
             $headerMainMenu.hide();
             $main.addClass('fadeInDown');
             $main.stop(true).fadeIn(200);
             $mainMenuBtn.removeClass('main-nav__btn--close');
-            $(document).unbind('click', t.eventOutClickHeaderMainMenu)
+            $(document).unbind(eventDevice, t.eventOutClickHeaderMainMenu)
         }
     },
     calculatorHeightMainMenu: function(){
         var wHeight = $(window).height();
         var headerHeight = 56;
-        var footerHeight = $('#footer').innerHeight();
-        console.log(wHeight, headerHeight, footerHeight);
+        var footerHeight = $('#footer').innerHeight();        
         return wHeight - ( headerHeight + footerHeight )
     },
     handleClickMainMenuBtn: function(){
         var $main = $('#main');
         var $mainMenuBtn = $('.main-nav--btn__bars');
         if ( t.checkElement( $mainMenuBtn ) ){
-            $mainMenuBtn.on('click', function(){
+            var eventDevice = t.checkTouchStartInDevice();
+            $mainMenuBtn.on(eventDevice, function(){
                 var $headerMainMenu = $('.header-menu-container');
                 if ( t.checkElement( $headerMainMenu ) ){
                     if ( $headerMainMenu.is(':hidden') ){                        
@@ -270,7 +271,7 @@ var t = {
                         });
                         $headerMainMenu.addClass('animated fadeInDown');
                         $headerMainMenu.stop(true).fadeIn(100, function(){
-                           $(document).bind('click', t.eventOutClickHeaderMainMenu)
+                           $(document).bind(eventDevice, t.eventOutClickHeaderMainMenu)
                         })
                     } 
                 }
@@ -280,20 +281,21 @@ var t = {
     eventOutClickHeaderSearchContainer: function(e){
         var $headerSearchContainer = $('.header-search-container');        
         if (!$headerSearchContainer.is(e.target) && $headerSearchContainer.has(e.target).length === 0){
-            
+            var eventDevice = t.checkTouchStartInDevice();
             $headerSearchContainer.stop(true).slideUp();
-            $(document).unbind('click', t.eventOutClickHeaderSearchContainer)
+            $(document).unbind(eventDevice, t.eventOutClickHeaderSearchContainer)
         }
     },
     handleClickHeaderSearchBtn: function(){  
         var $searchBtn = $('.main-nav--btn__search');     
         if ( t.checkElement( $searchBtn ) ){
-            $searchBtn.on('click', function(){
+            var eventDevice = t.checkTouchStartInDevice();
+            $searchBtn.on(eventDevice, function(){
                 var $headerSearchContainer = $('.header-search-container');
                 if ( t.checkElement( $headerSearchContainer ) ){                    
-                    if ( $headerSearchContainer.is(':hidden') ){    
+                    if ( $headerSearchContainer.is(':hidden') ){   
                         $headerSearchContainer.stop(true).slideDown(400, function(){
-                            $(document).bind('click', t.eventOutClickHeaderSearchContainer)
+                            $(document).bind(eventDevice, t.eventOutClickHeaderSearchContainer)
                         })
                     } 
                 } 
@@ -303,6 +305,23 @@ var t = {
     checkElement: function(jQelement){
         return typeof jQelement === 'object' && jQelement.length > 0
     },    
+    eventInDevice: function(){
+        if ( t.isMouseEventSupported('touchstart') ){
+            return 'touchstart'
+        }
+        return 'click'        
+    },
+    isMouseEventSupported: function(eventName) {
+        var el = document.createElement('div');
+        eventName = 'on' + eventName;
+        var isSupported = (eventName in el);
+        if (!isSupported) {
+          el.setAttribute(eventName, 'return;');
+          isSupported = typeof el[eventName] == 'function';
+        }
+        el = null;
+        return isSupported;
+      }
 }
 
 $(document).ready(function(){ 
