@@ -238,7 +238,7 @@ var t = {
         var $main = $('#main');
         var $mainMenuBtn = $('.main-nav--btn__bars');
         var $headerMainMenu = $('.header-menu-container');        
-        var eventDevice = t.checkTouchStartInDevice();
+        var eventDevice = t.eventInDevice();
         if (!$headerMainMenu.is(e.target) && $headerMainMenu.has(e.target).length === 0){
             $headerMainMenu.removeClass('animated fadeInDown');
             $headerMainMenu.hide();
@@ -258,7 +258,7 @@ var t = {
         var $main = $('#main');
         var $mainMenuBtn = $('.main-nav--btn__bars');
         if ( t.checkElement( $mainMenuBtn ) ){
-            var eventDevice = t.checkTouchStartInDevice();
+            var eventDevice = t.eventInDevice();
             $mainMenuBtn.on(eventDevice, function(){
                 var $headerMainMenu = $('.header-menu-container');
                 if ( t.checkElement( $headerMainMenu ) ){
@@ -281,7 +281,7 @@ var t = {
     eventOutClickHeaderSearchContainer: function(e){
         var $headerSearchContainer = $('.header-search-container');        
         if (!$headerSearchContainer.is(e.target) && $headerSearchContainer.has(e.target).length === 0){
-            var eventDevice = t.checkTouchStartInDevice();
+            var eventDevice = t.eventInDevice();
             $headerSearchContainer.stop(true).slideUp();
             $(document).unbind(eventDevice, t.eventOutClickHeaderSearchContainer)
         }
@@ -289,7 +289,7 @@ var t = {
     handleClickHeaderSearchBtn: function(){  
         var $searchBtn = $('.main-nav--btn__search');     
         if ( t.checkElement( $searchBtn ) ){
-            var eventDevice = t.checkTouchStartInDevice();
+            var eventDevice = t.eventInDevice();
             $searchBtn.on(eventDevice, function(){
                 var $headerSearchContainer = $('.header-search-container');
                 if ( t.checkElement( $headerSearchContainer ) ){                    
