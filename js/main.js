@@ -1,11 +1,28 @@
 var articleElemTemplate = {
-    articleDivide: '<span class="article--divide"></span>',
+    articleDivide: '<span class="article--divide"></span>',    
     templateVideoArticle: '<div class="article-list--featured"><a href="{ARTICLE_URL}" class="article-list--featured-img" style="background-image: url({ARTICLE_THUMB})"><i class="article-list--play"></i><img src="{ARTICLE_THUMB}" alt="{ARTICLE_TITLE}"></a><h3 class="rs mt-2"><a href="{ARTICLE_URL}" class="article-list--featured-title">{ARTICLE_TITLE}</a></h3><p class="rs article-label mt-2"><span class="article-label__main-color">{ARTICLE_IN_CATEGORY}</span><span class="ml-2">{ARTICLE_PUBLISHED_TIME}</span></p>{DIVIDE}</div>',
-    templateListArticle: '<div class="row row-8 article-list"><div class="col-5 col-sm-3 article-list--img container8"><a href={ARTICLE_URL} style="background-image:url({ARTICLE_THUMB})"><img src="{ARTICLE_THUMB}" alt="{ARTICLE_TITLE}" /></a></div><div class="col-7 col-sm-9 article-list--meta container8"><h3 class="rs article-list--title fwb mb-2"><a href="{ARTICLE_URL}">{ARTICLE_TITLE}</a></h3><p class="rs article-label"><span class="article-label__main-color">{ARTICLE_IN_CATEGORY}</span><span class="ml-2">{ARTICLE_PUBLISHED_TIME}</span></p></div>{DIVIDE}</div>',
+    templateArticleList: '<div class="row row-8 article-list"><div class="col-5 col-sm-3 article-list--img container8"><a href={ARTICLE_URL} style="background-image:url({ARTICLE_THUMB})"><img src="{ARTICLE_THUMB}" alt="{ARTICLE_TITLE}" /></a></div><div class="col-7 col-sm-9 article-list--meta container8"><h3 class="rs article-list--title fwb mb-2"><a href="{ARTICLE_URL}">{ARTICLE_TITLE}</a></h3><p class="rs article-label"><span class="article-label__main-color">{ARTICLE_IN_CATEGORY}</span><span class="ml-2">{ARTICLE_PUBLISHED_TIME}</span></p></div>{DIVIDE}</div>',
     templatesFtArticle: '<div class="ft-article ft-article__round ft-article__h264 mt-3"><a href="{ARTICLE_URL}" class="ft-article--img" style="background-image:url({ARTICLE_THUMB})"><img src="{ARTICLE_THUMB}" alt="{ARTICLE_TITLE}"></a><div class="ft-article--title"><a href="{ARTICLE_URL}" class="ft-article--link"></a><h3>{ARTICLE_TITLE}</h3></div></div>',
+    templateVideoList: '<div class="row row-8 article-list"><div class="col-5 col-sm-3 article-list--img container8"><a href={ARTICLE_URL} style="background-image:url({ARTICLE_THUMB})"><img src="{ARTICLE_THUMB}" alt="{ARTICLE_TITLE}" /></a></div><div class="col-7 col-sm-9 article-list--meta container8"><h3 class="rs article-list--title fwb mb-2"><a href="{ARTICLE_URL}"><i class="ico--yt"></i> {ARTICLE_TITLE}</a></h3><p class="rs article-label"><span class="article-label__main-color">{ARTICLE_IN_CATEGORY}</span><span class="ml-2">{ARTICLE_PUBLISHED_TIME}</span></p></div>{DIVIDE}</div>',
 }
 
 var t = { 
+    initPlyr: function(){
+        var $videoPlayer = document.getElementById('video-player');
+        if (Plyr && $videoPlayer){
+            return new new Plyr($videoPlayer, {
+                controls: [
+                    'mute',
+                    'play',
+                    'play-large',                      
+                    'progress', 
+                    'current-time',                     
+                    'volume',
+                    'fullscreen'
+                ]
+            })
+        }
+    },
     toggleLoadingButton: function( $buttonSelector, status, buttonTextOrigin ){        
         if (status === 'disabled'){
             $buttonSelector.addClass('disabled');
@@ -24,10 +41,13 @@ var t = {
                 templateArticle = articleElemTemplate.templateVideoArticle;
                 break;
             case 'article-list':
-                templateArticle = articleElemTemplate.templateListArticle;
+                templateArticle = articleElemTemplate.templateArticleList;
                 break;
             case 'ft-article':
                 templateArticle = articleElemTemplate.templatesFtArticle;
+                break;
+            case 'video-list':
+                templateArticle = articleElemTemplate.templateVideoList;
                 break;
             default: templateArticle = ''
         }
@@ -91,6 +111,7 @@ var t = {
                         articleHtml = articleHtml.replace(/\{ARTICLE_THUMB\}/g, article.thumb);
                         articleHtml = articleHtml.replace(/\{ARTICLE_IN_CATEGORY\}/g, article.category); 
                         articleHtml = articleHtml.replace(/\{ARTICLE_TITLE\}/g, article.title);
+                       
                         if ( i !== lastIndexOfNewArticles ){
                             articleHtml = articleHtml.replace(/\{DIVIDE\}/g, articleDivide);
                         } else {
@@ -213,64 +234,84 @@ var t = {
             })
         }
     },
-    eventClickHeaderMainMenu: function(e){
+    eventOutClickHeaderMainMenu: function(e){  
+        var $main = $('#main');
         var $mainMenuBtn = $('.main-nav--btn__bars');
         var $headerMainMenu = $('.header-menu-container');        
         if (!$headerMainMenu.is(e.target) && $headerMainMenu.has(e.target).length === 0){
-            $headerMainMenu.stop(true).slideUp(400);
+            $headerMainMenu.removeClass('animated fadeInDown');
+            $headerMainMenu.hide();
+            $main.addClass('fadeInDown');
+            $main.stop(true).fadeIn(200);
             $mainMenuBtn.removeClass('main-nav__btn--close');
-            $(document).unbind('click touchstart', t.eventClickHeaderMainMenu)
+            $(document).unbind('click', t.eventOutClickHeaderMainMenu)
         }
     },
+    calculatorHeightMainMenu: function(){
+        var wHeight = $(window).height();
+        var headerHeight = 56;
+        var footerHeight = $('#footer').innerHeight();
+        console.log(wHeight, headerHeight, footerHeight);
+        return wHeight - ( headerHeight + footerHeight )
+    },
     handleClickMainMenuBtn: function(){
+        var $main = $('#main');
         var $mainMenuBtn = $('.main-nav--btn__bars');
         if ( t.checkElement( $mainMenuBtn ) ){
-            $mainMenuBtn.on('click touchstart', function(){
+            $mainMenuBtn.on('click', function(){
                 var $headerMainMenu = $('.header-menu-container');
                 if ( t.checkElement( $headerMainMenu ) ){
-                    if ( $headerMainMenu.is(':hidden') ){
+                    if ( $headerMainMenu.is(':hidden') ){                        
                         $mainMenuBtn.addClass('main-nav__btn--close');
-                        $headerMainMenu.stop(true).slideDown(400, function(){
-                            $(document).bind('click touchstart', t.eventClickHeaderMainMenu)
+                        $main.removeClass('fadeInDown');
+                        $main.hide();
+                        $headerMainMenu.css({
+                            minHeight: t.calculatorHeightMainMenu()
+                        });
+                        $headerMainMenu.addClass('animated fadeInDown');
+                        $headerMainMenu.stop(true).fadeIn(100, function(){
+                           $(document).bind('click', t.eventOutClickHeaderMainMenu)
                         })
                     } 
                 }
             })
         }
     },
-    eventClickHeaderSearchContainer: function(e){
+    eventOutClickHeaderSearchContainer: function(e){
         var $headerSearchContainer = $('.header-search-container');        
         if (!$headerSearchContainer.is(e.target) && $headerSearchContainer.has(e.target).length === 0){
+            
             $headerSearchContainer.stop(true).slideUp();
-            $(document).unbind('click touchstart', t.eventClickHeaderSearchContainer)
+            $(document).unbind('click', t.eventOutClickHeaderSearchContainer)
         }
     },
     handleClickHeaderSearchBtn: function(){  
         var $searchBtn = $('.main-nav--btn__search');     
         if ( t.checkElement( $searchBtn ) ){
-            $searchBtn.on('click touchstart', function(){
+            $searchBtn.on('click', function(){
                 var $headerSearchContainer = $('.header-search-container');
                 if ( t.checkElement( $headerSearchContainer ) ){                    
-                    if ( $headerSearchContainer.is(':hidden') ){
+                    if ( $headerSearchContainer.is(':hidden') ){    
                         $headerSearchContainer.stop(true).slideDown(400, function(){
-                            $(document).bind('click touchstart', t.eventClickHeaderSearchContainer)
+                            $(document).bind('click', t.eventOutClickHeaderSearchContainer)
                         })
                     } 
                 } 
             })
         }  
-    },
+    },    
     checkElement: function(jQelement){
         return typeof jQelement === 'object' && jQelement.length > 0
-    }
+    },    
 }
 
-$(document).ready(function(){
+$(document).ready(function(){ 
     t.handleClickMoreArticles();
     t.handleClickMoreCommentBtn();
     t.initCategoryFilterSlider();
     t.initArticlesSlider();
     t.initScrollArticles();
     t.handleClickMainMenuBtn();
-    t.handleClickHeaderSearchBtn()
+    t.handleClickHeaderSearchBtn();
+    t.initPlyr();
 })

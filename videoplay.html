@@ -7,147 +7,119 @@
         <link href="./css/bootstrap-reboot.min.css" rel="stylesheet" type="text/css">   
         <link href="./css/bootstrap-grid.min.css" rel="stylesheet" type="text/css">   
         <link href="./css/owl.carousel.min.css" rel="stylesheet" type="text/css"> 
-        <link href="./css/animate.css" rel="stylesheet" type="text/css">
         <link href="./css/nanoscroller.css" rel="stylesheet" type="text/css">
+        <link href="./css/animate.css" rel="stylesheet" type="text/css">
+        <!-- Only load plyr.css in video play page -->
+        <link href="./css/plyr.css" rel="stylesheet" type="text/css">
+        <link href="./css/plyr-theme.css" rel="stylesheet" type="text/css">
+
         <link href="./css/styles.css" rel="stylesheet" type="text/css">        
     </head>
     <body>
-            <header id="header">
+            <header id="header" class="header-video-page">
                 <nav class="main-nav bg--primary">
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-2">
-                                <a href="javascript:void(0);" class="main-nav--btn main-nav--btn__bars">Toogle Nav</a>
+                                <a href="javascript:void(0);" class="main-nav--btn main-nav--btn__back">Back Button</a>
                             </div>
+                            
                             <div class="col-8">
-                                <h1 class="rs main-nav--logo"><a class="main-nav--logo__img">Phunuchudong.vn</a></h1>
+                                <h1 class="rs page-title">Video</h1>
                             </div>
+
                             <div class="col-2">
-                                <a href="javascript:void(0);" class="main-nav--btn main-nav--btn__search">Search Button</a>
+                                <a href="javascript:void(0);" class="main-nav--btn main-nav--btn__right main-nav--btn__bars main-nav--btn__bars-right">Toogle Nav</a>
                             </div>
+                            
                         </div>  
                     </div>   
-                </nav>
-                <div class="header-search-container bg--secondary" style="display:none">
-                    <div class="container-fluid">
-                        <form class="header-search-form">
-                            <input type="text" class="input input--round" placeholder="Nhập nội dung tìm kiếm" />
-                            <button class="btn btn--round">Tìm kiếm</button>
-                        </form>
-                    </div>
-                </div>
-                        
+                </nav>  
             </header>
             <div class="header-menu-container bg--secondary" style="display:none">
-                <div class="container-fluid">
-                    <div class="mt-2">
-                        <h2 class="title title__bdl title__big title__upcase mb-3">Chuyên mục</h2>  
+                <div class="container">
+
+                    <div class="header-search-container header-search-container--static bg--secondary pt-2">                        
+                            <form class="header-search-form">
+                                <input type="text" class="input input--round" placeholder="Nhập nội dung tìm kiếm" />
+                                <button class="btn btn--round">Tìm kiếm</button>
+                            </form>                        
+                    </div>
+
+                    <div>
+                        <h2 class="title title__bdl title__big title__upcase ">Tất cả chuyên mục</h2>
                         <ul class="rs list-unstyled row row8">
                             <li class="col-6 col-sm-4">
-                                <a href="#" class="row-8 tag-list--title">Tin tức</a>
+                                <a href="#" class="row-8 mt-3 tag-ico--title">
+                                    <span class="tag-ico--icon" style="background-image: url('https://longvd94.github.io/images/ico-trending.svg')"></span>
+                                    Trending
+                                </a>
+                            </li>                            
+                            <li class="col-6 col-sm-4">
+                                <a href="#" class="row-8 mt-3 tag-ico--title">
+                                    <span class="tag-ico--icon" style="background-image: url('https://longvd94.github.io/images/ico-entertainment.svg')"></span>
+                                    Giải trí
+                                </a>
                             </li>
                             <li class="col-6 col-sm-4">
-                                <a href="#" class="row-8 tag-list--title">Sức khỏe</a>
+                                <a href="#" class="row-8 mt-3 tag-ico--title">
+                                    <span class="tag-ico--icon" style="background-image: url('https://longvd94.github.io/images/ico-life.svg')"></span>
+                                    Đời sống
+                                </a>
                             </li>
                             <li class="col-6 col-sm-4">
-                                <a href="#" class="row-8 tag-list--title">Thời trang</a>
+                                <a href="#" class="row-8 mt-3 tag-ico--title">
+                                    <span class="tag-ico--icon" style="background-image: url('https://longvd94.github.io/images/ico-music.svg')"></span>
+                                    Âm nhạc
+                                </a>
                             </li>
                             <li class="col-6 col-sm-4">
-                                <a href="#" class="row-8 tag-list--title">Chăm sóc cơ thể</a>
+                                <a href="#" class="row-8 mt-3 tag-ico--title">
+                                    <span class="tag-ico--icon" style="background-image: url('https://longvd94.github.io/images/ico-news.svg')"></span>
+                                    Tin tức 24h
+                                </a>
                             </li>
                             <li class="col-6 col-sm-4">
-                                <a href="#" class="row-8 tag-list--title">Tình yêu giới tính</a>
-                            </li>
-                            <li class="col-6 col-sm-4">
-                                <a href="#" class="row-8 tag-list--title">Nghệ thuật sống</a>
-                            </li>
-                            <li class="col-6 col-sm-4">
-                                <a href="#" class="row-8 tag-list--title">Làm đẹp</a>
-                            </li>
-                            <li class="col-6 col-sm-4">
-                                <a href="#" class="row-8 tag-list--title">Videos</a>
-                            </li>
-                        </ul>   
-                    </div>
-                    <div class="mt-2">
-                        <h2 class="title title__bdl title__big title__upcase mb-3">Chủ đề đặc biệt</h2>
-                        <div class="cate-list" style="background-image: url('https://longvd94.github.io/images/article-list.jpg')">
-                            <h3 class="d-flex align-items-center cate-list--title">
-                                Sống chậm
-                            </h3>
-                            <a href="#" class="cate-list--link"></a>
-                        </div>
-                        <div class="cate-list" style="background-image: url('https://longvd94.github.io/images/article-list.jpg')">
-                            <h3 class="d-flex align-items-center cate-list--title">
-                                Hành trình bản thân
-                            </h3>
-                            <a href="#" class="cate-list--link"></a>
-                        </div>
-                        <div class="cate-list" style="background-image: url('https://longvd94.github.io/images/article-list.jpg')">
-                            <h3 class="d-flex align-items-center cate-list--title">
-                                Những điều đơn giản
-                            </h3>
-                            <a href="#" class="cate-list--link"></a>
-                        </div>
-                        <div class="cate-list" style="background-image: url('https://longvd94.github.io/images/article-list.jpg')">
-                            <h3 class="d-flex align-items-center cate-list--title">
-                                Đọc và suy ngẫm
-                            </h3>
-                            <a href="#" class="cate-list--link"></a>
-                        </div>
+                                <a href="#" class="row-8 mt-3 tag-ico--title">
+                                    <span class="tag-ico--icon" style="background-image: url('https://longvd94.github.io/images/ico-kitchen.svg')"></span>
+                                    Vào bếp
+                                </a>
+                            </li>                            
+                        </ul>
                     </div>
                 </div>
-            </div>
+            </div> 
             <div id="main">
                 <div class="container">
-                    <ul class="rs breadcrumb list-unstyled">
-                        <li class="first"><a href="#">Trang chủ</a></li>
-                        <li><a href="#">Thời trang</a></li>
-                        <li class="current">Thời trang quốc tế</li>                      
-                    </ul>
-                    <h2 class="title title__medium">
+                    <div class="video-container">
+                        <video id="video-player" controls src="https://cdn.plyr.io/static/demo/View_From_A_Blue_Moon_Trailer-576p.mp4"></video>
+                    </div>
+                    <h2 class="rs title title__medium mt-3">
                         Lúc sinh thời, Công nương Diana "chất chơi" đến đâu? 
                         Ta cứ nhìn quần tất "chóe lọe" của bàn thì biết
                     </h2>
                     <p class="rs article-label mt-2">
                         <span class="article-label__main-color">
-                            Thời trang quốc tế
+                            Văn hóa thể thao
                         </span>
                         <span class="ml-2">
                             10 giờ trước
                         </span>
                     </p>
-                    <div class="article-detail pb-4 mt-3">
-                        <div class="article-detail--ft-img">
-                            <img src="https://longvd94.github.io/images/article-list.jpg" alt="">
-                        </div>
-                        <div class="article-detail--content">
-                            <p class="mt-3">
-                                <b >
-                                    Xét về độ táo bạo, sành điệu, chị em dâu Kate - Meghan còn chạy dài mới theo kịp mẹ chồng quá cố.
-                                </b>
-                            </p>
-                            
-                            <p class="mt-3">                                Thanh lịch, trang nhã và sang trọng là tất cả những tính từ mỹ miều mà công chúng thường dành để nói về phong cách của Công nương Diana – biểu tượng huyền thoại trong lòng những người yêu thời trang. 
-                                Tuy nhiên, bên cạnh những nét phong cách &quot;chính chuyên&quot;, 
-                                đậm chất Hoàng gia ấy thì Công nương Diana thực sự là một cá tính thời trang vô cùng táo bạo, chịu chơi; và điều này thường thể hiện qua những bộ móng tay đỏ rực rỡ, đường kẻ mắt xanh dương, những set đồ menswear cá tính… hay đôi lần 
-                                diện quần tất màu siêu chóe mà chúng ta sắp được chiêm ngưỡng dưới đây.
-                            </p>
-
-                        </div>
-
-                        <div class="article-detail--author">
-                            Ảnh: Pinterest, VF, Getty
-                        </div>
-
-                        <div class="article-detail--tags mt-2">
-                            <b>Từ khóa:</b>
-                            <a href="#">Công nương Diana</a>
-                            <a href="#">Thời trang hoàng gia</a>
-                            <a href="#">Thời trang ăn mày</a>
-                            <a href="#">Công nương David</a>
-                        </div>
+                    <p class="rs mt-3">
+                        Bàn thắng có phần may mắn ở phút bù giờ cuối của lão tướng Anh Đức giúp tuyển Việt Nam 
+                        đánh bại đại kình địch Thái Lan 1-0 giành vé vào chơi trận chung kết King’s Cup 2019
+                    </p>
+                    <div class="article-detail mt-3 pb-4">
+                            <div class="article-detail--tags">
+                                <b>Từ khóa:</b>
+                                <a href="#">Công nương Diana</a>
+                                <a href="#">Thời trang hoàng gia</a>
+                                <a href="#">Thời trang ăn mày</a>
+                                <a href="#">Công nương David</a>
+                            </div>
                     </div>
+
                     <div class="article-comment mt-3">
                         <h3 class="title title__upcase title__small">Ý kiến bạn đọc</h3>
                         
@@ -192,18 +164,20 @@
                     </div>
 
                     <div class="mt4">
-                        <h2 class="title title__big title__upcase title__bdl">Có thể bạn quan tâm</h2>
+                        <h2 class="title title__big title__upcase title__bdl">Video nổi bật</h2>
                         <div class="article-list-wrapper">
                             <!-- row article list -->
                             <div class="row row-8 article-list"> 
                                 <div class="col-5 col-sm-3 article-list--img container8">
                                     <a href="#" style="background-image:url('https://longvd94.github.io/images/article-list.jpg')">
+                                        <span class="article-list--play"></span>
                                         <img src="https://longvd94.github.io/images/article-list.jpg" alt="img" />
                                     </a>
                                 </div>
                                 <div class="col-7 col-sm-9 article-list--meta container8">
                                     <h3 class="rs article-list--title fwb mb-2">
-                                        <a href="#">                                       
+                                        <a href="#"> 
+                                            <i class="ico--yt"></i>                                      
                                             Bộ công an vào cuộc kiểm tra việc xử lý 
                                             kẻ sàm sỡ nữ sinh trong thang máy
                                         </a>
@@ -228,7 +202,8 @@
                                 </div>
                                 <div class="col-7 col-sm-9 article-list--meta container8">
                                     <h3 class="rs article-list--title fwb mb-2">
-                                        <a href="#">                                        
+                                        <a href="#"> 
+                                            <i class="ico--yt"></i>                                       
                                             Bộ công an vào cuộc kiểm tra việc xử lý 
                                             kẻ sàm sỡ nữ sinh trong thang máy
                                         </a>
@@ -253,7 +228,8 @@
                                 </div>
                                 <div class="col-7 col-sm-9 article-list--meta container8">
                                     <h3 class="rs article-list--title fwb mb-2">
-                                        <a href="#">                                       
+                                        <a href="#">    
+                                            <i class="ico--yt"></i>                                   
                                             Bộ công an vào cuộc kiểm tra việc xử lý 
                                             kẻ sàm sỡ nữ sinh trong thang máy
                                         </a>
@@ -269,7 +245,7 @@
                                 </div>   
                             </div>
 
-                            <a href="javascript:void(0);" class=" articles-more-btn" data-page="1" data-offset="2" data-category="videos" data-templates="article-list">
+                            <a href="javascript:void(0)" class=" articles-more-btn" data-page="1" data-offset="2" data-category="videos" data-templates="video-list">
                                 Xem thêm
                             </a>
                         </div>
@@ -294,6 +270,9 @@
             <script type="text/javascript" src="./js/jquery-3.4.1.min.js"></script>
             <script type="text/javascript" src="./js/jquery.nanoscroller.min.js"></script>
             <script type="text/javascript" src="./js/owl.carousel.js"></script>
+            <!-- Only load plyr.polyfilled.js in video play page -->
+            <script type="text/javascript" src="./js/plyr.polyfilled.js"></script>
+            
             <script type="text/javascript" src="./js/main.js"></script>
     </body>
 </html>
