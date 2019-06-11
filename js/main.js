@@ -10,7 +10,7 @@ var t = {
     initPlyr: function(){
         var $videoPlayer = document.getElementById('video-player');
         if (Plyr && $videoPlayer){
-            return new new Plyr($videoPlayer, {
+            return new Plyr($videoPlayer, {
                 controls: [
                     'mute',
                     'play',
