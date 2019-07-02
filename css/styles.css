@@ -202,7 +202,7 @@ body {
     display: inline-block;
     width:25px;
     height: 25px;    
-    background:#fff url('https://longvd94@github.io/images/search-icon.svg') center center/30px 30px no-repeat;
+    background:#fff url('../images/search-icon.svg') center center/30px 30px no-repeat;
     border-radius: 50%;
     -webkit-border-radius: 50%;
     -moz-border-radius: 50%;
@@ -239,16 +239,16 @@ body {
     background-size:100% 100%;
 }
 .ico-social__fb {
-    background-image:url('https://longvd94@github.io/images/facebook-o.svg')
+    background-image:url('../images/facebook-o.svg')
 }
 .ico-social__yt {
-    background-image:url('https://longvd94@github.io/images/youtube-o.svg')
+    background-image:url('../images/youtube-o.svg')
 }
 .ico-social__ig {
-    background-image:url('https://longvd94@github.io/images/instagram-o.svg')
+    background-image:url('../images/instagram-o.svg')
 }
 .ico-social__gg {
-    background-image:url('https://longvd94@github.io/images/google-o.svg')
+    background-image:url('../images/google-o.svg')
 }
 .header-middle {
     text-align: center;
@@ -259,7 +259,7 @@ body {
     width:189px;
     height: 53px;
     text-indent: -9999em;
-    background: url('https://longvd94@github.io/images/logo-p.png') center center/189px 53px no-repeat;
+    background: url('../images/logo-p.png') center center/189px 53px no-repeat;
 }
 .main-nav {
     font-weight: bold;    
@@ -421,7 +421,7 @@ body {
     left:0;
     width:90px;
     height: 55px;    
-    background: rgba(255,255,255,0.6) url('https://longvd94@github.io/images/play-o.png') center center/38px 38px no-repeat;
+    background: rgba(255,255,255,0.6) url('../images/play-o.png') center center/38px 38px no-repeat;
 }
 .article-grid--play__big {
     bottom:20px;
@@ -765,7 +765,7 @@ body {
     margin-top: -12px;
     width: 24px;
     height: 24px;
-    background-image: url('https://longvd94@github.io/images/menu-bar.png');
+    background-image: url('../images/menu-bar.png');
     background-size: 48px 24px;
 }
 .video-nav--btn__bars:after {
