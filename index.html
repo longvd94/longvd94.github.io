@@ -1,23 +1,131 @@
 <!doctype html>
-    <html lang="en" class="no-js loading">
-        <head>
-            <meta charset="UTF-8"/>
-            <meta name="viewport" content="width=device-width,initial-scale=1">
-            <title>Infinite Circular Gallery</title>
-            <meta name="description" content="An infinite circular gallery using WebGL with OGL and GLSL Shaders."/>
-            <meta name="keywords" content="javascript, webgl, gallery, shaders, glsl, inspiration, web design"/>
-            <meta name="author" content=""/>
-            <link href="main.css" rel="stylesheet">
-            <!-- Global site tag (gtag.js) - Google Analytics -->
-            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-75796628-8"></script>
-            <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
+<html lang="en" class="no-js loading">
+  <head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Infinite Circular Gallery</title>
+    <meta name="description" content="An infinite circular gallery using WebGL with OGL and GLSL Shaders."/>
+    <meta name="keywords" content="javascript, webgl, gallery, shaders, glsl, inspiration, web design"/>
+    <meta name="author" content=""/>
+    <style>
+      .bg-image {
+          position: fixed;
+          top:0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          z-index: 0;
+          opacity: 0;     
+          transform: scale(1.1);          
+          background-size: cover;
+          background-position: center center;
+          filter: blur(12px);
+          -webkit-filter: blur(12px);
+          transition: transform 1.5s linear;
+        }
 
-            gtag('config', 'UA-75796628-8');
-            </script>
+        .bg-image.zoomIn {
+          transform: scale(1);
+        }
 
-        </head>
-        <body>
-            <main></main><script src="main.js"></script></body></html>
+        .bg-image.zoomOut {
+          transform: scale(1.1);
+        }
+      </style>
+      <link href="main.css" rel="stylesheet">
+      </head>
+      <body>
+        <div id="background-container">
+
+        </div>
+        <script>
+        var backgroundImageQueue = ['/63934fc3368e78b179901ef3c770d971.jpg'];
+      var backgroundFadeInRef = null;
+
+      function fadeOut(el, timeout = 500) {  
+        let lastTime = Date.now();    
+        const currentOpacityVal = el.style.opacity;
+        
+        (function fade() {
+            const currentTime = Date.now();
+            const val = parseFloat(el.style.opacity) - (((currentTime - lastTime) / timeout) * currentOpacityVal);  
+            el.style.opacity = Math.max(val, 0);
+            lastTime = currentTime;
+            if (val > 0) {
+              requestAnimationFrame(fade);               
+            } 
+        })();
+      };
+
+      function fadeIn(el, timeout = 500) {
+        let isFadeCancel = false;
+        let lastTime = Date.now();              
+        el.style.opacity = 0.1;
+
+        (function fade() {   
+            if (!isFadeCancel) {
+              cancelAnimationFrame(fade)
+            }            
+            const currentTime = Date.now();
+            const val = parseFloat(el.style.opacity > 0 ? el.style.opacity : 0.1) + (((currentTime - lastTime) / timeout) * 0.4);           
+            el.style.opacity = val > 0 ? Math.min(val, 0.5) : 0;
+            lastTime = currentTime;
+            if (val < 0.5) {               
+              requestAnimationFrame(fade);
+            } 
+        })();
+
+        return {
+          cancel: () => {
+            isFadeCancel = true;
+          }
+        };
+      };
+        
+      function setMainBackground() {
+        const backgroundContainerElem = document.getElementById('background-container');
+
+        if (!backgroundContainerElem) {
+          return false;
+        }
+        
+        if (backgroundImageQueue.length) {
+          const backgroundContainerChilds = backgroundContainerElem.children;
+
+          if (backgroundContainerChilds && backgroundContainerChilds.length) {
+            backgroundFadeInRef.cancel();
+            const backgroundContainerChildsLength = backgroundContainerChilds.length;
+            for (let i = 0; i < backgroundContainerChildsLength; i++) {
+              backgroundContainerChilds[i].classList.add('zoomOut'); 
+              fadeOut(backgroundContainerChilds[i], 3000);            
+              setTimeout(() => {
+                if (backgroundContainerChilds[i]) {
+                  backgroundContainerElem.removeChild(backgroundContainerChilds[i]);
+                }                
+              }, 3000);
+            }
+          }
+
+          const backgroundElem = document.createElement('div');
+          backgroundElem.style.backgroundImage = `url(${backgroundImageQueue[0]})`;
+          backgroundImageQueue.shift();
+          backgroundElem.classList.add('bg-image');  
+          backgroundElem.classList.add('zoomIn');      
+          backgroundFadeInRef = fadeIn(backgroundElem);
+          
+          backgroundContainerElem.append(backgroundElem);
+        } 
+        setTimeout(() => {
+          setMainBackground();
+        }, 100);
+      }
+
+      (function backgroundInit() {       
+        if (!backgroundImageQueue.length) {
+          window.requestAnimationFrame(backgroundInit);
+          return false;
+        }
+        setMainBackground();  
+      })();
+
+    </script><script src="main.js"></script></body></html>
