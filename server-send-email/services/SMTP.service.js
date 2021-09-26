@@ -26,7 +26,7 @@ transporter.verify((error, success) => {
 })
 
 
-async function senderSmtpEmail(data) {
+async function transporterEmail(data) {
     const mailInfo = {
         from: `${data.sender_name} <${data.sender_email}>`,
         to: data.recipients.join(','),
@@ -42,4 +42,4 @@ async function senderSmtpEmail(data) {
     }
 }
 
-module.exports = { senderSmtpEmail };
+module.exports = { transporterEmail };

@@ -20,7 +20,7 @@ module.exports = {
         }    
         
         try {
-            await SMTPService.senderSmtpEmail({ ...body, recipients });
+            await SMTPService.transporterEmail({ ...body, recipients });
             status = 1;                 
         } catch (err) {
             console.error('SMTP err', err);            
