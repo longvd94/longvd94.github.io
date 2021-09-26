@@ -21,9 +21,9 @@ module.exports = {
         
         try {
             await SMTPService.senderSmtpEmail({ ...body, recipients });
-            status = 1;            
+            status = 1;                 
         } catch (err) {
-            console.error('SMTP err', err);
+            console.error('SMTP err', err);            
             error_message = err.message;
         }
         

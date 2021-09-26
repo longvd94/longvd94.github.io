@@ -1,22 +1,41 @@
-const SibApiV3Sdk = require('sib-api-v3-sdk');
-let defaultClient = SibApiV3Sdk.ApiClient.instance;
+const nodemailer = require('nodemailer');
 
-let apiKey = defaultClient.authentications['api-key'];
-apiKey.apiKey = process.env.SMTP_APIKEY;
+const transport = {
+    // this is the authentication for sending email.
+    host: process.env.SMTP_HOSTNAME,
+    port: process.env.SMTP_PORT,
+    secure: false, // use TLS
+    // create a .env file and define the process.env variables 
+    // with your credentials.
+    auth: {
+        user: process.env.SMTP_USERNAME,
+        pass: process.env.SMTP_PASSWORD,
+    },
+}
 
-let apiInstance = new SibApiV3Sdk.TransactionalEmailsApi();
+const transporter = nodemailer.createTransport(transport);
+
+transporter.verify((error, success) => {
+    if (error) {
+        //if error happened code ends here
+        console.error('transporter', error)
+    } else {
+        //this means success
+        console.log('Ready to send mail!')
+    }
+})
 
 
 async function senderSmtpEmail(data) {
-    let sendSmtpEmail = new SibApiV3Sdk.SendSmtpEmail();    
-
-    sendSmtpEmail.subject = data.subject;
-    sendSmtpEmail.htmlContent = data.message || '';
-    sendSmtpEmail.sender = { name: data.sender_name, email: data.sender_email };
-    sendSmtpEmail.to = data.recipients.map((email) => ({ email }));
-
+    const mailInfo = {
+        from: `${data.sender_name} <${data.sender_email}>`,
+        to: data.recipients.join(','),
+        subject: data.subject,
+        html: data.message || '',
+    };
+   
     try {
-        const response = await apiInstance.sendTransacEmail(sendSmtpEmail);
+        const response = await transporter.sendMail(mailInfo);
         return response;
     } catch (err) {
         throw err;
