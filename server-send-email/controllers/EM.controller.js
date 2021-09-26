@@ -1,5 +1,3 @@
-const fs = require('fs');
-const path = require('path');
 const { Buffer } = require('buffer');
 
 const EMService = require('../services/EM.service');
