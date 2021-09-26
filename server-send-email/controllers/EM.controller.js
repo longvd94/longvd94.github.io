@@ -11,9 +11,7 @@ const { validRecipients } = require('../helpers/validtion');
 
 module.exports = {    
     sendEmail: async function(req, res) {
-        const { body, file } = req;      
-         console.log('body', body);
-         console.log('file', file);
+        const { body, file } = req;               
         let attachment;
         let status = 0;
         let error_message = '';        
